@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ app_website }}/assets/css/invoice.css"  />
+</head>
+<body>
+    <img src="{{ app_website }}/images/icons/le_dressing_francais_logo.png" style="position: absolute;" height="120">
+    <h1 style="font-size: 1.8rem; text-align:right;">Facture</h1>
+
+    <header style="margin-top: 130px;">
+        <h2 style="font: bold 100% sans-serif;">{{ app_brand }}</h2>
+        <address contenteditable style="float: left;">
+            <p style="font-size: 14px; line-height: 18px;">
+                1 rue de la démo<br>
+                00000 Démo<br>
+                Mail : contact@it-dc.fr
+            </p>
+        </address>
+    </header>
+
+    <table class="meta" style="transform: translateY(-150px) translateX(0px); ">
+        <tr>
+            <th><span contenteditable>N° de Commande</span></th>
+            <td><span >{{ order.reference }}</span></td>
+        </tr>
+        <tr>
+            <th><span contenteditable>N° de Facture</span></th>
+            <td><span contenteditable>FA-{{ invoice }}</span></td>
+        </tr>
+        <tr>
+            <th><span contenteditable>Date</span></th>
+            <td><span contenteditable>{{ order.createdAt|date('d/m/Y') }}</span></td>
+        </tr>
+    </table>
+
+    <table style="transform: translateY(-120px); margin-top: 120px; margin-bottom: -20px; ">
+        <tr>
+            <td style="margin-right: -20px !important;">
+                <h2 style="margin-bottom: 15px; font: bold 100% sans-serif;">Adresse de facturation</h2>
+                <address contenteditable style="font-size: 14px; font-weight: normal; line-height: 18px;">
+                    <p>{{ invoiceAddress.firstname ~ ' ' ~ invoiceAddress.lastname }}</p>
+                    <p>
+                        {{ invoiceAddress.address1 }}<br>
+                        {% if invoiceAddress.address2|default %}
+                            {{ invoiceAddress.address2 }}<br>
+                        {% endif %}
+                        {{ invoiceAddress.city ~', '~ invoiceAddress.postalCode }}<br>
+                        {{ invoiceAddress.country }}<br>
+                    </p>
+                </address>
+            </td>
+            <td>
+                <h2 style="margin-bottom: 15px; font: bold 100% sans-serif;">Adresse de livraison</h2>
+                <address contenteditable style="font-size: 14px; font-weight: normal; line-height: 18px;">
+                    <p>{{ order.deliveryFirstname ~ ' ' ~ order.deliveryLastname }}</p>
+                    <p>{{ order.FullDeliveryAddress|raw }}</p>
+                    <p style="margin-top: 15px"><span style="font-weight: bold">Mode de livraison</span> : {{ order.carrierName }}</p>
+                </address>
+            </td>
+        </tr>
+    </table>
+
+    <article>
+        <table class="inventory">
+            <thead>
+            <tr>
+                <th><span contenteditable>{% if order.orderDetails|length > 1 %}Articles{% else %}Article{% endif %}</span></th>
+                <th><span contenteditable>Qté</span></th>
+                <th><span contenteditable>PU TTC</span></th>
+                <th><span contenteditable>Total TTC</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set totalQuantity = 0 %}
+            {% set totalPrice = 0 %}
+            {% for item in order.orderDetails %}
+                {% set totalQuantity =  totalQuantity + item.quantity %}
+                {% set totalPrice = totalPrice + (item.price * item.quantity) %}
+                <tr>
+                    <td><span contenteditable>{{ item.product }}</span></td>
+                    <td style="text-align: center;"><span contenteditable >{{ item.quantity }}</span></td>
+                    <td><span contenteditable>{{ item.price|number_format('2',',', ' ') }}</span><span data-prefix>€</span></td>
+                    <td><span>{{ (item.price*item.quantity)|number_format('2',',', ' ') }}</span><span data-prefix>€</span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="balance">
+            <tr>
+                <th><span contenteditable>Sous-total TTC</span></th>
+                <td><span>{{ totalPrice|number_format('2',',', ' ') }}</span><span data-prefix>€</span></td>
+            </tr>
+            <tr>
+                <th><span contenteditable>Frais de livraison</span></th>
+                <td><span contenteditable>{{ order.carrierPrice|number_format('2',',', ' ') }}</span><span data-prefix>€</span></td>
+            </tr>
+            <tr>
+                <th><span contenteditable>Total TTC</span></th>
+                <td><span>{{ (totalPrice+order.carrierPrice)|number_format('2',',', ' ') }}</span><span data-prefix>€</span></td>
+            </tr>
+            <tr>
+                <th><span contenteditable style="font-style: italic">dont TVA</span></th>
+                <td><span style="font-style: italic">{{ (totalPrice-(totalPrice/1.2))|number_format('2',',', ' ') }}</span><span data-prefix>€</span></td>
+            </tr>
+        </table>
+    </article>
+    <aside>
+        <h1>Merci</h1>
+        <div style="text-align: center;">
+            <p style="">À bientôt sur {{ app_brand }}</p>
+            <p style="font-size: 14px; margin-top: 20px;">{{ app_website }}</p>
+        </div>
+    </aside>
+</body>
+</html>

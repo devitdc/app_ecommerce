@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <div class="container" style="max-width: 700px;">
+        <h2>Confirmation de commande <i class="fa-solid fa-circle-check fs-1 ms-1" style="color: #1b9d2a;"></i></h2>
+        <h5>N° {{ order.reference }}</h5><br>
+        <p>Bonjour <b>{{ order.deliveryFirstname }}</b>,</p>
+        <p>Nous vous remercions pour votre commande.</p>
+        <p>Un email de confirmation vous a été envoyé à l'adresse <b>{{ order.user.email }}</b>.</p>
+
+        <div class="row border-top border-3 border-dark bg-light p-2 justify-content-between m-0" style="max-width: 700px">
+            <div class="col-6">
+                Votre mode de livraison :<br>
+                <b>{{ order.carrierName }}</b><br>
+            </div>
+            <div class="col-6" style="max-width: 300px;">
+                Votre commande sera expédiée à :<br>
+                <b>{{ order.deliveryLastname ~ ' ' ~ order.deliveryFirstname }}<br>
+                {{ order.deliveryAddress1 }}<br>
+                {% if order.deliveryAddress2|default %}
+                    {{ order.deliveryAddress2 }}<br>
+                {% endif %}
+                {{ order.deliveryPostalCode ~ ' ' ~ order.deliveryCity}}<br>
+                {{ order.deliveryCountry }}</b>
+            </div>
+
+        </div>
+        <div class="row bg-light p-2 justify-content-between m-0" style="max-width: 700px">
+            <div class="col-6 " >
+                Total de la commande :<br>
+                <b>{{ order.totalOrder }} €</b>
+            </div>
+            <div class="col-6 " style="max-width: 300px;">
+                <a href="{{ path('user_orders') }}">
+                    <button class="btn btn-warning">Afficher les détails de la commande</button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

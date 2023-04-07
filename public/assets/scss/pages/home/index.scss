@@ -1,0 +1,63 @@
+.carousel-control-next-icon, .carousel-control-prev-icon  {
+  background-image: none !important;
+}
+.carousel-control-next-icon:before, .carousel-control-prev-icon:before {
+  /*font-family: slick;*/
+  font-family: "FontAwesome", sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  opacity: .75;
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.carousel-control-next-icon:before {
+  /*content: '→';*/
+  content: "\f054";
+}
+.carousel-control-prev-icon:before {
+  /*content: '←';*/
+  content: "\f053";
+}
+.lightSlider {
+  height: 270px !important;
+}
+.LSAction > a {
+  background-image: none !important;
+}
+.lSAction > .lSNext:before, .lSAction > .lSPrev:before  {
+  /*font-family: slick;*/
+  font-family: "FontAwesome", sans-serif !important;
+  font-size: 30px !important;
+  line-height: 1;
+  opacity: .75;
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.lSAction > .lSNext:before {
+  /*content: '→';*/
+  content: "\f054" !important;
+}
+.lSAction > .lSPrev:before {
+  /*content: '→';*/
+  content: "\f053" !important;
+}
+.slick-next:before, .slick-prev:before {
+  /*font-family: slick;*/
+  font-family: "FontAwesome", sans-serif !important;
+  font-size: 30px !important;
+  line-height: 1;
+  opacity: .75;
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.slick-next:before {
+  /*content: '→';*/
+  content: "\f054" !important;
+}
+.slick-prev:before {
+  /*content: '←';*/
+  content: "\f053" !important;
+}

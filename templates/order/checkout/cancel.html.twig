@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            {%if type == 'success'%} {% set type = 'success' %} {%endif%}
+            {%if type == 'warning'%} {% set type = 'warning' %} {%endif%}
+            {%if type == 'error'%} {% set type = 'danger' %} {%endif%}
+            <div class="alert alert-{{ type }} alert-dismissible fade show " role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <h2 class="text-warning">Annulation du paiement de la commande</h2>
+    <h5>N° {{ order.reference }}</h5><br>
+    <p>Bonjour <b>{{ order.deliveryFirstname ~ ' ' ~ order.deliveryLastname}}</b>,</p>
+    <p>Il semblerait que vous ayez annulé le paiement de votre commande ou bien que le paiement ait échoué ?</p>
+    <p>Avez-vous oubliez d'ajouter quelque chose à votre panier ? <i class="fs-4 fa-regular fa-face-laugh-wink"></i></p>
+    <p>Vous avez la possibilité de modifier votre commande en cliquant sur ce lien : <a class="text-decoration-none" href="{{ path('cart_home') }}">Modifier ma commande</a></p>
+    <p>Ou bien de continuer vos achats en cliquant sur ce lien : <a class="text-decoration-none" href="{{ path('product_list') }}">Accéder à nos produits</a></p>
+    <p>En espérant vous revoir très vite ! <i class="fs-4 fa-regular fa-face-grin-hearts"></i></p>
+{% endblock %}

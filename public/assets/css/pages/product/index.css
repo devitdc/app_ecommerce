@@ -1,0 +1,146 @@
+/* Float 3 columns side by side */
+.card-column {
+  float: left;
+  width: 33%;
+  padding: 0 10px 10px;
+}
+@media screen and (max-width: 600px) {
+  .card-column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 992px) {
+  .card-column {
+    width: 49%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Remove extra left and right margins, due to padding */
+.card-row {
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.card-row:after {
+  content: "";
+  display: inline;
+  clear: both;
+}
+
+.card-content {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.card-content:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.product-card-image {
+  height: 300px;
+}
+@media (max-width: 375px) {
+  .product-card-image {
+    height: 120px !important;
+    object-fit: contain;
+  }
+}
+@media (max-width: 768px) {
+  .product-card-image {
+    height: 200px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 768px) {
+  #product-col {
+    margin-top: 30px;
+  }
+}
+
+#product-item {
+  margin-right: -8px !important;
+  margin-left: -8px !important;
+}
+
+#product-col-list {
+  max-width: 300px;
+  margin-bottom: 30px;
+}
+
+.product-item-image {
+  margin-bottom: 10px;
+  height: 300px;
+  object-fit: contain;
+}
+@media (max-width: 375px) {
+  .product-item-image {
+    height: 130px !important;
+  }
+}
+@media (max-width: 768px) {
+  .product-item-image {
+    height: 200px;
+  }
+}
+
+@media (min-width: 992px) {
+  #product-item-identity {
+    height: 50px;
+  }
+}
+
+.product-item-name {
+  font-size: 0.95rem;
+  margin-top: 5px;
+  padding: 2px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  /*@include mixins.for-medium-phone {
+    text-overflow:ellipsis;
+    overflow:hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }*/
+}
+@media (max-width: 320px) {
+  .product-item-name {
+    font-size: 0.7em !important;
+  }
+}
+@media (max-width: 768px) {
+  .product-item-name {
+    font-size: 0.85em;
+  }
+}
+
+#product-item-subtitle {
+  font-size: 0.8rem;
+}
+@media (max-width: 768px) {
+  #product-item-subtitle {
+    font-size: 1rem !important;
+    display: none;
+  }
+}
+
+#product-item-price {
+  font-family: "Ricty Diminished", "Myrica M", Consolas, "Courier New", Courier, Monaco, monospace !important;
+  padding-bottom: 10px !important;
+}
+@media (max-width: 375px) {
+  #product-item-price {
+    font-size: 0.75rem !important;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

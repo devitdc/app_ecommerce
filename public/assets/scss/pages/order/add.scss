@@ -1,0 +1,8 @@
+@use '../../_variables.scss';
+@use '../../_mixins.scss';
+
+.order-resume-col {
+  @include mixins.for-small-phone {
+    font-size: variables.$text-intermediate-phone !important;
+  }
+}

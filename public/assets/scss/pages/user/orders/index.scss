@@ -1,0 +1,212 @@
+@use '../../../_variables.scss';
+@use '../../../_mixins.scss';
+
+.user-orders-card-header {
+  padding-bottom: 0
+}
+.user-orders-card-title {
+  @include mixins.for-small-phone {
+    font-size: .8rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .9rem;
+  }
+}
+.user-orders-container, .user-orders-container-previous {
+  max-width: 900px;
+}
+.user-orders-date-td {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+    margin-right: 5px !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .7rem;
+    margin-right: 10px;
+  }
+  @include mixins.breakpoint-min-768 {
+    margin-right: 80px;
+  }
+  @include mixins.for-tablet-portrait-up {
+    margin-right: 15px;
+  }
+}
+.user-orders-delivery-address {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .7rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+  }
+}
+.user-orders-delivery-carrier {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .7rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+    margin-top: 10px;
+  }
+}
+.user-orders-delivery-price {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .7rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+    margin-top: 10px;
+  }
+}
+.user-orders-detail-link {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+  }
+}
+.user-orders-dropdown-menu {
+  @include mixins.for-standard-phone {
+    font-size: .8rem !important;
+    min-width: 9.5rem !important;
+  }
+}
+.user-orders-invoice-link {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+  }
+}
+.user-orders-number {
+  @include mixins.for-small-phone {
+    font-size: .5rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .6rem;
+  }
+}
+.user-orders-number-td {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    margin-right: 5px !important;
+    font-size: .6rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .65rem;
+    margin-right: 10px;
+  }
+  @include mixins.breakpoint-min-768 {
+    margin-right: 80px;
+  }
+  @include mixins.for-tablet-portrait-up {
+    margin-right: 15px;
+  }
+}
+.user-orders-product-img {
+  height: 80px;
+  @include mixins.for-standard-phone {
+    height: 40px;
+  }
+}
+.user-orders-product-img-col {
+  @include mixins.breakpoint-min-768 {
+    margin-right: 20px;
+  }
+}
+.user-orders-product-name {
+  font-size: .9rem;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+    padding-left: .60rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+    padding-left: .15rem;
+  }
+}
+.user-orders-product-price {
+  font-size: .9rem;
+  @include mixins.for-small-phone {
+    font-size: .55rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+  }
+}
+.user-orders-product-quantity {
+  font-size: .9rem;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+    padding-left: .20rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .8rem;
+  }
+}
+.user-orders-product-quantity-label-md {
+  @include mixins.for-standard-phone {
+    display: none;
+  }
+}
+.user-orders-product-quantity-label-xs {
+  @include mixins.breakpoint-min-768 {
+    display: none;
+  }
+}
+.user-orders-product-buy-btn {
+  font-size: .9rem;
+  @include mixins.for-standard-phone {
+    font-size: .7rem !important;
+    margin-top: 10px;
+  }
+}
+.user-orders-state-td {
+  font-size: 1rem;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .7rem;
+  }
+}
+.user-orders-table {
+  margin-bottom: 0 !important;
+}
+.user-orders-total-div {
+  @include mixins.for-small-phone {
+    font-size: .9rem !important;
+  }
+}
+.user-orders-total-label {
+  margin-right: 50px;
+}
+.user-orders-total-td-md {
+  font-size: 1rem;
+  @include mixins.for-standard-phone {
+    display: none;
+  }
+}
+.user-orders-total-td-xs {
+  font-size: 1rem;
+  margin-top: 5px;
+  @include mixins.for-small-phone {
+    font-size: .6rem !important;
+    margin-top: 8px !important;
+  }
+  @include mixins.for-standard-phone {
+    font-size: .7rem;
+    margin-top: 7px;
+  }
+  @include mixins.breakpoint-min-769 {
+    display: none;
+  }
+}
+

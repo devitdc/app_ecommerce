@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 403 - Le Dressing Français{% endblock %}
+
+{% block content %}
+    <div class="text-center" style="color: #24313B">
+        <h1 style="font-size: 6rem !important">Zut !</h1>
+        <img class="img-fluid" src="{{ asset('images/icons/error_403.webp') }}" alt="page d'erreur 403 - Le Dressing Français" style="height: 430px">
+        <p class="mt-3 mb-4 fs-4">Vous n'êtes pas autorisé à accéder à cette page.</p>
+        <p class="mt-3 mb-4 fs-4">Vous pouvez contacter l'administrateur du site s'il s'agit d'une erreur.</p>
+        <p>
+            <a class="text-decoration-none" href="{{ path('home') }}">
+                <button class="btn text-light px-4 py-2" style="background-color: #24313B">Retour à la page d'accueil</button></a>
+        </p>
+    </div>
+{% endblock %}

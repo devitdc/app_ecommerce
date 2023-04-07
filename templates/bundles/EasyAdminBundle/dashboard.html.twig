@@ -1,0 +1,552 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    Dashboard Overview
+{% endblock %}
+
+{% block main %}
+    <style>
+        .inherited-styles-for-exported-element {
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.5;
+        }
+
+        ::after {
+            border-color: #d5d6d7;
+            border-width: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        canvas, svg {
+            display: block;
+            vertical-align: middle;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+
+        .bg-white {
+            background-color: #fff;
+        }
+
+        .bg-gray-100, .hover\:bg-gray-100:hover {
+            background-color: #f4f5f7;
+        }
+
+        .bg-orange-100 {
+            background-color: #feecdc;
+        }
+
+        .bg-green-100 {
+            background-color: #def7ec;
+        }
+
+        .bg-green-500 {
+            background-color: #0e9f6e;
+        }
+
+        .bg-teal-100 {
+            background-color: #d5f5f6;
+        }
+
+        .bg-teal-500 {
+            background-color: #0694a2;
+        }
+
+        .bg-blue-100 {
+            background-color: #e1effe;
+        }
+
+        .bg-blue-500 {
+            background-color: #3f83f8;
+        }
+
+        .border-gray-200 {
+            border-color: #e5e7eb;
+        }
+
+        .rounded-lg {
+            border-radius: .5rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .border {
+            border-width: 1px;
+        }
+
+        .border-b {
+            border-bottom-width: 1px;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .h-12 {
+            height: 3rem;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .text-xs {
+            font-size: .75rem;
+        }
+
+        .text-sm {
+            font-size: .875rem;
+        }
+
+        .text-base {
+            font-size: 1rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+
+        .leading-none {
+            line-height: 1;
+        }
+
+        .my-6 {
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .my-8 {
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mb-1 {
+            margin-bottom: .25rem;
+        }
+
+        .mb-3 {
+            margin-bottom: .75rem;
+        }
+
+        .mr-4 {
+            margin-right: 1rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .min-w-0 {
+            min-width: 0;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .overflow-x-auto {
+            overflow-x: auto;
+        }
+
+        .p-2 {
+            padding: .5rem;
+        }
+
+        .p-3 {
+            padding: .75rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .py-3 {
+            padding-bottom: .75rem;
+            padding-top: .75rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .shadow-xs {
+            box-shadow: rgba(0, 0, 0, .05) 0 0 0 1px;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .text-gray-50 {
+            color: #f9fafb;
+        }
+
+        .text-gray-500 {
+            color: #707275;
+        }
+
+        .text-gray-600 {
+            color: #4c4f52;
+        }
+
+        .text-gray-700 {
+            color: #24262d;
+        }
+
+        .text-gray-800 {
+            color: #1a1c23;
+        }
+
+        .text-orange-600 {
+            color: #d03801;
+        }
+
+        .text-green-600 {
+            color: #057a55;
+        }
+
+        .text-teal-600 {
+            color: #047481;
+        }
+
+        .text-blue-600 {
+            color: #1c64f2;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .tracking-wide {
+            letter-spacing: .025em;
+        }
+
+        .whitespace-no-wrap {
+            white-space: nowrap;
+        }
+
+        .w-12 {
+            width: 3rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .gap-4 {
+            column-gap: 1rem;
+            row-gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .md\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .xl\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .xl\:grid-cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        .divide-y>:not(template)~:not(template) {
+            border-bottom-width: calc(1px*0);
+            border-top-width: calc(1px*(1 - 0));
+        }
+
+        .divide-gray-100>:not(template)~:not(template) {
+            border-color: #f4f5f7;
+        }
+
+    </style>
+    <div class="container grid px-6 mx-auto inherited-styles-for-exported-element">
+        <div class="grid gap-4 mb-8 md:grid-cols-3 xl:grid-cols-3">
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex justify-center text-center h-full">
+                <div class="p-4 border border-gray-200 dark:border-gray-800 w-full p-6 rounded-lg text-white dark:text-green-100 bg-teal-500">
+                    <div class="text-center inline-block text-3xl text-white dark:text-green-100 bg-teal-500"><svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 5l-8-4-8 4 8 4 8-4zM8 2.328l5.345 2.672-5.345 2.672-5.345-2.672 5.345-2.672zM14.398 7.199l1.602 0.801-8 4-8-4 1.602-0.801 6.398 3.199zM14.398 10.199l1.602 0.801-8 4-8-4 1.602-0.801 6.398 3.199z"></path>
+                        </svg></div>
+                    <div>
+                        <p class="mb-3 text-base font-medium text-gray-50 dark:text-gray-100">Today Orders</p>
+                        <p class="text-3xl font-bold leading-none text-gray-50 dark:text-gray-50">
+                            {% if dayAmount|default %}
+                                {{ dayAmount|number_format('2', ',', ' ') }}€
+                            {% else %}
+                                30,89€
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex justify-center text-center h-full">
+                <div class="p-4 border border-gray-200 dark:border-gray-800 w-full p-6 rounded-lg text-white dark:text-green-100 bg-blue-500">
+                    <div class="text-center inline-block text-3xl text-white dark:text-green-100 bg-blue-500"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg></div>
+                    <div>
+                        <p class="mb-3 text-base font-medium text-gray-50 dark:text-gray-100">This Month</p>
+                        <p class="text-3xl font-bold leading-none text-gray-50 dark:text-gray-50">
+                            {% if monthAmount|default %}
+                                {{ monthAmount|number_format('2', ',', ' ') }}€
+                            {% else %}
+                                15 996,98€
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex justify-center text-center h-full">
+                <div class="p-4 border border-gray-200 dark:border-gray-800 w-full p-6 rounded-lg text-white dark:text-green-100 bg-green-500">
+                    <div class="text-center inline-block text-3xl text-white dark:text-green-100 bg-green-500"><svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.5 2h-13c-0.825 0-1.5 0.675-1.5 1.5v9c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-9c0-0.825-0.675-1.5-1.5-1.5zM1.5 3h13c0.271 0 0.5 0.229 0.5 0.5v1.5h-14v-1.5c0-0.271 0.229-0.5 0.5-0.5zM14.5 13h-13c-0.271 0-0.5-0.229-0.5-0.5v-4.5h14v4.5c0 0.271-0.229 0.5-0.5 0.5zM2 10h1v2h-1zM4 10h1v2h-1zM6 10h1v2h-1z"></path>
+                        </svg></div>
+                    <div>
+                        <p class="mb-3 text-base font-medium text-gray-50 dark:text-gray-100">Total Orders</p>
+                        <p class="text-3xl font-bold leading-none text-gray-50 dark:text-gray-50">
+                            {% if yearAmount|default %}
+                                {{ yearAmount|number_format('2', ',', ' ') }}€
+                            {% else %}
+                                15 996,98€
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex h-full">
+                <div class="p-4 flex items-center border border-gray-200 dark:border-gray-800 w-full rounded-lg">
+                    <div class="flex items-center justify-center p-3 rounded-full h-12 w-12 text-center mr-4 text-lg text-orange-600 dark:text-orange-100 bg-orange-100 dark:bg-orange-500"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg></div>
+                    <div>
+                        <p class="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400"><span>Total Orders</span> </p>
+                        <p class="text-2xl font-bold leading-none text-gray-600 dark:text-gray-200">
+                            {% if totalPaidOrders|default %}
+                                {{ totalPaidOrders }}
+                            {% else %}
+                                568
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex h-full">
+                <div class="p-4 flex items-center border border-gray-200 dark:border-gray-800 w-full rounded-lg">
+                    <div class="flex items-center justify-center p-3 rounded-full h-12 w-12 text-center mr-4 text-lg text-blue-600 dark:text-blue-100 bg-blue-100 dark:bg-blue-500"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg></div>
+                    <div>
+                        <p class="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400"><span>Order Pending</span></p>
+                        <p class="text-2xl font-bold leading-none text-gray-600 dark:text-gray-200">
+                            {% if totalPendingOrders|default %}
+                                {{ totalPendingOrders }}
+                            {% else %}
+                                2
+                            {% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex h-full">
+                <div class="p-4 flex items-center border border-gray-200 dark:border-gray-800 w-full rounded-lg">
+                    <div class="flex items-center justify-center p-3 rounded-full h-12 w-12 text-center mr-4 text-lg text-teal-600 dark:text-teal-100 bg-teal-100 dark:bg-teal-500"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg></div>
+                    <div>
+                        <p class="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400"><span>Order Processing</span> </p>
+                        <p class="text-2xl font-bold leading-none text-gray-600 dark:text-gray-200">
+                            {% if totalProgressDeliveryOrders|default %}
+                                {{ totalProgressDeliveryOrders }}
+                            {% else %}
+                                4
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="min-w-0 rounded-lg ring-1 ring-black ring-opacity-4 overflow-hidden bg-white dark:bg-gray-800 flex h-full">
+                <div class="p-4 flex items-center border border-gray-200 dark:border-gray-800 w-full rounded-lg">
+                    <div class="flex items-center justify-center p-3 rounded-full h-12 w-12 text-center mr-4 text-lg text-green-600 dark:text-green-100 bg-green-100 dark:bg-green-500"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg></div>
+                    <div>
+                        <p class="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400"><span>Order Delivered</span> </p>
+                        <p class="text-2xl font-bold leading-none text-gray-600 dark:text-gray-200">
+                            {% if totalDeliveredOrders|default %}
+                                {{ totalDeliveredOrders }}
+                            {% else %}
+                                5
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 my-8">
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <p class="mb-4 font-semibold text-gray-800 dark:text-gray-300">Best Selling Products</p>
+                <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 mb-4">
+                    {#<canvas id="my-Chart"></canvas>#}
+                    {#{{ render_chart(chart, {'id': 'my-chart'})}}#}
+                    {{ render_chart(chartBestSellingProducts)}}
+                </div>
+            </div>
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <p class="mb-4 font-semibold text-gray-800 dark:text-gray-300">Sales Overview</p>
+                <div>
+                    {{ render_chart(chartMonthlySalesOverview)}}
+                </div>
+            </div>
+        </div>
+        <h1 class="my-6 text-lg font-bold text-gray-700 dark:text-gray-300">Last Orders</h1>
+        <div class="w-full overflow-hidden border border-gray-200 dark:border-gray-700 rounded-lg ring-1 ring-black ring-opacity-5 mb-8">
+            <div class="w-full overflow-x-auto">
+                <table class="w-full whitespace-no-wrap">
+                    <thead class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:text-gray-400 dark:bg-gray-800">
+                    <tr>
+                        <td class="px-4 py-3">Date</td>
+                        <td class="px-4 py-3">Order</td>
+                        <td class="px-4 py-3">Status</td>
+                        <td class="px-4 py-3">Customer</td>
+                        <td class="px-4 py-3">Total <span style="font-size: .7em;">Tax excl.</span></td>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100 dark:divide-gray-700 dark:bg-gray-800 text-gray-700 dark:text-gray-400">
+                    {% for order in lastOrders %}
+                        {% set totalPrice = 0 %}
+                        {#{% for product in order.orderDetails %}
+                            {% set totalPrice = totalPrice + (product.price * product.quantity) %}
+                        {% endfor %}#}
+                        {%  set totalPrice = order.totalOrder - order.carrierPrice %}
+                        <tr>
+                            <td class="px-4 py-3"><span class="text-sm">{{ order.createdAt|date('Y-m-d H:i:s') }}</span></td>
+                            <td class="px-4 py-3"><span class="text-sm ">{{ order.reference }}</span></td>
+                            <td class="px-4 py-3">
+                                {% if order.deliveryState == 3 %}
+                                    <span class="badge bg-primary text-white p-2">Commande validée</span>
+                                    {% elseif order.deliveryState == 4 %}
+                                    <span class="badge bg-warning text-white p-2">Préparation en cours</span>
+                                    {% elseif order.deliveryState == 5 %}
+                                    <span class="badge bg-warning text-white p-2">Livraison en cours</span>
+                                    {% elseif order.deliveryState == 6 %}
+                                    <span class="badge bg-success text-white p-2">Livré</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-3"> <span class="text-sm">{{ order.deliveryFirstname ~ ' ' ~ order.deliveryLastname }}</span> </td>
+                            <td class="px-4 py-3"> <span class="text-sm font-semibold">{{ totalPrice }}€</span> </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

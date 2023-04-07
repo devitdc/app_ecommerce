@@ -1,0 +1,6 @@
+#!/usr/bin/env php
+<?php
+
+$port = $argv[1] ?? 80;
+
+exec("php -S localhost:$port -t public/");

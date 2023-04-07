@@ -1,0 +1,28 @@
+li > a {
+  text-decoration: none !important;
+}
+
+.product-carousel-item-image {
+  height: 180px;
+}
+
+.product-carousel-item-name {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  min-height: 40px;
+}
+
+.product-carousel-item-price {
+  font-size: 1.1rem;
+}
+
+.text-ellipsis-2 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+/*# sourceMappingURL=_product_carousel.css.map */

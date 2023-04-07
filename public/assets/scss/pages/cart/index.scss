@@ -1,0 +1,68 @@
+@use '../../_variables.scss';
+@use '../../_mixins.scss';
+
+.cart-card-resume-header {
+  h5 {
+    @include mixins.for-medium-phone {
+      font-size: 1rem !important;
+    }
+  }
+}
+.cart-col-product {
+  @include mixins.breakpoint-min-992 {
+    padding-right: 40px;
+  }
+}
+.cart-col-product-price {
+  @include mixins.for-standard-phone   {
+    font-size: variables.$text-standard-phone;
+  }
+  @include mixins.for-small-phone   {
+    font-size: .80rem;
+  }
+}
+.cart-header {
+  @include mixins.for-small-phone {
+    font-size: 1.2rem !important;
+  }
+}
+.list-group-item {
+  @include mixins.for-medium-phone {
+    font-size: .85rem !important;
+  }
+}
+.cart-hidden-qty-br {
+  @include mixins.breakpoint-min-992 {
+    display: none;
+  }
+}
+.cart-product-name {
+  @include mixins.for-standard-phone   {
+    font-size: variables.$text-standard-phone;
+  }
+  @include mixins.for-small-phone   {
+    font-size: variables.$text-small-phone;
+  }
+}
+.cart-product-stock-message {
+  font-size: .85rem;
+}
+.cart-product-quantity {
+  @include mixins.for-standard-phone   {
+    font-size: variables.$text-standard-phone;
+  }
+  @include mixins.for-small-phone   {
+    font-size: variables.$text-small-phone;
+  }
+  .cart-icon-minus, .cart-icon-plus {
+    @include mixins.breakpoint-max-992 {
+      font-size: 0.85rem !important;
+    }
+  }
+}
+.cart-product-quantity-value {
+  font-size: 1.1rem;
+  @include mixins.breakpoint-max-992 {
+    font-size: 0.80rem !important;
+  }
+}

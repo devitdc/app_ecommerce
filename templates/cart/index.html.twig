@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content%}
+    {% if cart|length > 0 %}
+        {% set totalQuantity = 0 %}
+        {% set totalPrice = 0 %}
+        {% for p in cart %}
+            {% set totalQuantity =  totalQuantity + p.quantity %}
+            {% set totalPrice = totalPrice + (p.product.price * p.quantity) %}
+        {% endfor %}
+         <h3 class="cart-header text-center text-md-start">Vous avez {{ totalQuantity }} {% if totalQuantity > 1 %}articles{% else %}article{% endif %} dans votre panier.</h3>
+         <div class="row d-flex justify-content-center my-4 gx-5" >
+            <div class="col-12 col-md-7 col-lg-7 cart-col-product">
+                <div class="card border-0" >
+                    {% for p in cart %}
+                    <div class="card-body" >
+                        <!-- Single item -->
+                        <div class="row card-body-row">
+                            <div class="col-3 col-lg-3 p-0">
+                                <img class="w-100" src="{{ asset('images/uploads/'~p.product.image) }}" alt="{{ p.product.name }}"  >
+                            </div>
+                            <div class="col-5 col-md-5 col-lg-5 s-2">
+                                <p class="cart-product-name"><strong>{{ p.product.name }}</strong></p>
+                                <p class="cart-product-quantity mb-0">Quantité<br class="cart-hidden-qty-br">
+                                    <a class="text-decoration-none text-dark fs-5 cart-icon-minus" href="{{ path('cart_decrease_quantity', { 'id' : p.product.id}) }}">
+                                        <i class="fa-solid fa-circle-minus"></i>
+                                    </a>
+                                    <span class="bg-light fw-bold text-dark px-3 py-1 cart-product-quantity-value">{{ p.quantity }}</span>
+                                        {% if p.quantity < p.product.stock %}
+                                            <a class="text-decoration-none text-dark fs-5 cart-icon-plus" href="{{ path('cart_add', { 'id' : p.product.id}) }}">
+                                                <i class="fa-solid fa-circle-plus"></i>
+                                            </a>
+                                        {% else %}
+                                            <br>
+                                            <span class="fst-italic fw-bold text-dark cart-product-stock-message">Le stock a été atteint.</span>
+                                        {% endif %}
+                                </p>
+                                <div class="mt-3">
+                                    <a href="{{ path('cart_remove_product', { 'id' : p.product.id}) }}" class="text-decoration-none">
+                                        <button type="button" class="btn btn-primary btn-sm me-1" >
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                    {#<button type="button" class="btn btn-danger btn-sm" >
+                                        <i class="fas fa-heart"></i>
+                                    </button>#}
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-4 cart-col-product-price pe-1" >
+                                <p class="text-end">
+                                    <strong>{{ (p.product.price*p.quantity)|number_format(2, ',', ' ') }} €</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Single item -->
+                    </div>
+                    <hr class="" />
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12 col-md-5 col-lg-5 cart-col-resume ">
+                <div class="card card-resume mb-4 sticky-top">
+                    <div class="card-header cart-card-resume-header py-3">
+                        <h5 class="mb-0">Résumé de votre commande</h5>
+                    </div>
+                    <div class="card-body cart-card-resume-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Articles
+                                <span>{{ totalPrice|number_format(2, ',', ' ') }} €</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                Livraison
+                                <span>Calculé à l'étape suivante</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+
+                                    <p class="my-auto"><strong>Sous-Total (TVA incluse)</strong></p>
+
+                                <span><strong>{{ totalPrice|number_format(2, ',', ' ') }} €</strong></span>
+                            </li>
+                        </ul>
+                        <a href="{{ path('order_home') }}">
+                            <button type="button" class="btn btn-primary btn-lg w-100">
+                                Valider mon panier
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+     {% else %}
+        <div class="text-center mt-5">
+            <p class="mb-4"><img src="{{ asset('images/icons/empty-cart.png') }}" alt="empty cart" height="150px"></p>
+            <h3>VOTRE PANIER EST VIDE</h3>
+            <p class="mt-4">
+                Nous avons vérifié, mais il n'y a rien ici.
+            </p>
+            <p>
+                <a class="text-decoration-none" href="{{ path('product_list') }}"><button class="btn btn-primary border-dark px-5 py-3">CONTINUER MON SHOPPING</button></a>
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}

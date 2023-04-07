@@ -1,0 +1,134 @@
+@use '../_variables.scss';
+@use '../_mixins.scss';
+
+html, body {
+  height: 100%;
+}
+body {
+  width: 100%;
+}
+.base-button-cart-icon-lg {
+  @include mixins.for-standard-phone {
+    display: none;
+  }
+}
+.base-button-cart-icon-xs {
+  @include mixins.breakpoint-min-769 {
+    display: none;
+  }
+  @include mixins.for-standard-phone {
+    margin-right: -50px !important;
+  }
+}
+.base-button-user-icon-lg {
+  @include mixins.for-standard-phone {
+    display: none;
+  }
+}
+.base-button-user-icon-xs {
+  @include mixins.breakpoint-min-769 {
+    display: none;
+  }
+}
+.base-button-user-menu-lg {
+  @include mixins.for-standard-phone {
+    display: none;
+  }
+}
+.base-button-user-menu-xs {
+  @include mixins.breakpoint-min-769 {
+    display: none;
+  }
+  @include mixins.for-standard-phone {
+    transform: translateY(-3px);
+  }
+}
+.base-carousel-header-title h1, .base-carousel-header-title h2{
+  background: -webkit-linear-gradient(#ffffff , #e7f2f4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.base-logo {
+  height: 100px;
+  @include mixins.for-small-phone {
+    height: 80px;
+  }
+}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.content {
+  min-height: 100%;
+}
+.footer-custom {
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #dfeaff;
+}
+.form-check {
+  margin-bottom: 15px;
+}
+.header-menu-user-lg {
+  @include mixins.breakpoint-min-768 {
+    margin: .1rem -.5rem 0 !important;
+  }
+}
+hr {
+  border: none;
+  border-top: 2px solid #333;
+  color: #333;
+  overflow: visible;
+  text-align: center;
+  height: 3px;
+}
+.navbar-brand {
+  margin-right: 50px !important;
+}
+.nav-item {
+  margin-right: 50px !important;
+}
+.push {
+  height: 80px;
+}
+.reveal {
+  position: relative;
+  opacity: 0;
+}
+.reveal.active {
+  opacity: 1;
+}
+.active.fade-left {
+  animation: fade-left 1s ease-in;
+}
+.active.fade-right {
+  animation: fade-right 1s ease-in;
+}
+@keyframes fade-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.select2-container--default .select2-selection--multiple {
+  border: 1px solid #CED4DA;
+}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }} - La Boutique Française{% endblock %}
+
+{% block content %}
+    <div class="container" style="max-width: 1000px">
+        <div class="row mt-5 mb-5">
+             <div class="col-md-6 text-center" >
+                <img class="img-fluid mb-3 product-page-image" src="{{ asset('images/uploads/' ~ product.image) }}" alt="{{ product.name }}"
+                     style="max-height: 500px;">
+             </div>
+             <div class="col-md-6 my-auto">
+                 <h3 class="product-page-name">
+                     {{ product.name }}
+                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                         <a class="text-decoration-none ms-2 mt-1 text-dark" href="{{ ea_url()
+                             .setController('App\\Controller\\Admin\\ProductCrudController')
+                             .setAction('edit')
+                             .setEntityId(product.id)}}">
+                             <span class="fa fa-edit"></span>
+                         </a>
+                     {% endif %}
+                 </h3>
+                 <span class="product-page-price fs-3 fw-bold">{{ product.price|number_format(2, ',', '.') }} €</span>
+                 <hr>
+                 <p>
+                     {{ product.description|raw }}
+                 </p>
+                 {% if product.stock > 0 %}
+                     <a href="{{ path('cart_add', {'id' : product.id}) }}" class="btn btn-primary mt-3">Ajouter au panier</a>
+                 {% else %}
+                     <i class="fa-solid fa-face-sad-tear fs-3"></i>
+                     <span class="fw-bold" style="color: #e67e22">Désolé mais cet article n'est plus en stock pour l'instant.</span>
+                 {% endif %}
+             </div>
+        </div>
+        <hr>
+        <h3 class="mt-5">Meilleures ventes</h3>
+        <div class="text-center">
+            <ul id="lightSlider" class="slickSlider text-center">
+                {% for product in products %}
+                    {{ include('product/_product_carousel.html.twig') }}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

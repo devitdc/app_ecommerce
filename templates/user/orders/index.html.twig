@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container p-0 user-orders-container-previous">
+        <a href="{{ path('user_account') }}">
+            <button class="btn btn-primary rounded-1 mt-2 mb-4">
+                Retour à votre compte
+            </button>
+        </a>
+    </div>
+    <div class="container p-0 user-orders-container">
+        <h3 class="mt-1">Vos commandes</h3>
+        {% if orders|default %}
+            {% for order in orders %}
+                {% set totalQuantity = 0 %}
+                {% set totalPrice = 0 %}
+                {% set productID = 0 %}
+                {% for item in order.orderDetails %}
+                    {% set totalQuantity =  totalQuantity + item.quantity %}
+                    {% set totalPrice = totalPrice + (item.price * item.quantity) %}
+                    {% set productID = item.id %}
+                {% endfor %}
+                <div class="card mt-4">
+                    <div class="card-header px-1 user-orders-card-header">
+                        <table class="table table-sm table-responsive table-borderless user-orders-table" >
+                            <tbody>
+                                <tr>
+                                    <td class="float-start user-orders-number-td" >
+                                        N° DE COMMANDE<br>
+                                        <span class="badge bg-secondary user-orders-number" >{{ order.reference }}</span>
+                                    </td>
+                                    <td class="float-start user-orders-date-td">
+                                        DATE<br>
+                                        <b>{{ order.createdAt|date('d/m/Y') }}</b>
+                                    </td>
+                                    <td class="float-start user-orders-state-td" >
+                                        STATUT<br>
+                                        {% if order.deliveryState == 3 %}
+                                            <span class="badge bg-primary">Commande validée</span>
+                                        {% elseif order.deliveryState == 4 %}
+                                            <span class="badge bg-warning">Préparation en cours</span>
+                                        {% elseif order.deliveryState == 5 %}
+                                            <span class="badge bg-warning">Livraison en cours</span>
+                                        {% elseif order.deliveryState == 6 %}
+                                            <span class="badge bg-success">Livré</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="float-end user-orders-total-td-md" >
+                                        TOTAL TTC <br>
+                                        <b>{{ order.getTotalOrder|number_format(2, ',', ' ') }} €</b> ({{ totalQuantity }} {% if totalQuantity > 1 %}articles{% else %}article{% endif %})
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="float-start user-orders-total-td-xs" >
+                                        TOTAL TTC : <b>{{ order.getTotalOrder }} €</b>
+                                        ({{ totalQuantity }} {% if totalQuantity > 1 %}articles{% else %}article{% endif %})
+                                    </td>
+                                    <td class="float-end" colspan="8">
+                                        <a class="text-decoration-none user-orders-detail-link" data-bs-toggle="collapse" href="#detail-{{ productID }}" role="button" aria-expanded="false" aria-controls="detail">
+                                            Détail
+                                        </a>
+                                        |
+                                        <a class="text-decoration-none user-orders-invoice-link"  href="{{ path('user_order_show', {'reference' : order.reference}) }}">
+                                            Facture
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body collapse" id="detail-{{ productID }}">
+                        <div class="row">
+                            <div class="col-8 col-md-4 user-orders-delivery-address">
+                                <strong>Adresse de livraison</strong> :<br>
+                                {{ order.deliveryFirstname ~ ' ' ~ order.deliveryLastname }}<br>{{ order.FullDeliveryAddress|raw }}
+                            </div>
+                            <div class="col-6 col-md-3 user-orders-delivery-carrier">
+                                <strong>Mode de livraison</strong> :<br>
+                                {{ order.carrierName }}
+                            </div>
+                            <div class="col-6 col-md-3 user-orders-delivery-price">
+                                <strong>Frais de livraison</strong> :<br>
+                                {{ order.carrierPrice|number_format(2, ',', ' ') }} €
+                            </div>
+                        </div>
+                        <div class="card-title mt-3 fw-bold user-orders-card-title">{% if order.orderDetails|length > 1 %}Articles{% else %}Article{% endif %}</div>
+                        {% for item in order.orderDetails %}
+                            <div class="row justify-content-md-between">
+                                <div class="col-2 col-md-1 user-orders-product-img-col">
+                                    <img class="user-orders-product-img" src="/images/uploads/{{ item.imageName }}" alt="{{ item.product }}" >
+                                </div>
+                                <div class="col-5 col-md-3 my-auto user-orders-product-name">
+                                    {{ item.product }}
+                                </div>
+                                <div class="col-2 col-md-2 my-auto text-center user-orders-product-quantity">
+                                    <span class="user-orders-product-quantity-label-md">Quantité :</span><span class="user-orders-product-quantity-label-xs">Qté :</span> {{ item.quantity }}
+                                </div>
+                                <div class="col-3 col-md-2 text-end my-auto user-orders-product-price" >
+                                    {{ item.total|number_format(2, ',', ' ') }} €
+                                </div>
+                                <div class="col-sm-12 col-md-3 my-auto text-end user-orders-product-buy">
+                                    <a class="text-decoration-none" href="{{ path('cart_add', { id: item.productId}) }}"><button class="btn btn-light w-100 text-dark fw-bold user-orders-product-buy-btn" >Acheter à nouveau</button></a>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                        <div class="float-end border border-1 rounded px-3 py-2 bg-light user-orders-total-div">
+                            <span class="user-orders-total-label">Total {% if totalQuantity > 1 %}articles{% else %}article{% endif %} :</span>
+                            <span class="float-end">{{ totalPrice|number_format(2, ',', ' ') }} €</span><br>
+                            Livraison : <span class="float-end">{{ order.carrierPrice|number_format(2, ',', ' ') }} €</span><br>
+                            <strong>Total TTC :  <span class="float-end">{{ order.getTotalOrder|number_format(2, ',', ' ') }} €</span></strong>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+                <div class="navigation mt-4">
+                    {{ knp_pagination_render(orders) }}
+                </div>
+            {% else %}
+                <p class="mt-4">
+                    Vous n'avez aucune commande.
+                </p>
+                <p>
+                    <a class="text-decoration-none" href="{{ path('product_list') }}"><button class="btn btn-primary border-dark px-3 py-2">CONTINUER MON SHOPPING</button></a>
+                </p>
+        {% endif %}
+    </div>
+{% endblock %}

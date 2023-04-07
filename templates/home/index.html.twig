@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block carousel %}{% endblock %}
+
+{% block content %}
+     {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            {%if type == 'success'%} {% set type = 'success' %} {%endif%}
+            {%if type == 'warning'%} {% set type = 'warning' %} {%endif%}
+            {%if type == 'error'%} {% set type = 'danger' %} {%endif%}
+            <div class="alert alert-{{ type }} alert-dismissible fade show " role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <h3>Meilleures ventes</h3>
+    <div class="text-center">
+        <ul id="lightSlider" class="text-center">
+            {% for product in products %}
+                {{ include('product/_product_carousel.html.twig') }}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row">
+        <div class="col-md-7 reveal fade-left">
+            <h2 class="featurette-heading fw-normal lh-1">Nous créons notre propre <span class="text-muted">avenir vestimentaire.</span></h2>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies dictum nisi, vel euismod lacus ornare eu. </p>
+        </div>
+        <div class="col-md-5 reveal fade-right">
+            <img class="img-fluid" src="{{ asset('images/couture.jpg') }}" alt="Un savoir-faire 100% made in France." height="500" width="500">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row">
+        <div class="col-md-7 order-md-2 reveal fade-right">
+            <h2 class="featurette-heading fw-normal lh-1">Nos magasins vous <span class="text-muted">accueille dans toute la France.</span></h2>
+            <p class="lead">Curabitur elementum nulla sed elementum accumsan. Fusce turpis arcu, venenatis et dolor vitae, porta egestas enim.</p>
+        </div>
+        <div class="col-md-5 order-md-1 reveal fade-left">
+            <img class="img-fluid " src="{{ asset('images/store.jpg') }}" alt="Venez découvrir nos magasins ouvert toute l'année." height="500" width="500">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+{% endblock %}

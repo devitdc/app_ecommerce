@@ -1,0 +1,15 @@
+<div class="card-row mt-4">
+    <div class="card-column mb-2">
+        <div class="card-content rounded-3">
+            <a href="{{ path('product_show', { 'slug' : product.slug}) }}">
+                <div class="product-card-image">
+                    <img class="img-fluid product-item-image p-1" src="{{ asset('images/uploads/' ~ product.image) }}" alt="{{ product.name }}" >
+                </div>
+            </a>
+            <div style="height: 50px !important;">
+                <span class="fw-bold product-item-name" data-bs-toggle="tooltip" data-bs-title="{{ product.name }}" class="my-0">{{ product.name }}</span>
+            </div>
+            <p id="product-item-price"><span>{{ product.price|number_format(2, ',', '.') }} €</span></p>
+        </div>
+    </div>
+</div>

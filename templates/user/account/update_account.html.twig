@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container p-0" style="max-width: 600px">
+        <a href="{{ path('user_update_home') }}">
+            <button class="btn btn-primary rounded-1 mb-4">
+                Retour à la page précédente
+            </button>
+        </a>
+    </div>
+
+    <div class="container p-0 mb-4" style="max-width: 600px">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <div class="container border rounded shadow p-3" style="max-width: 600px">
+        <div class="row mx-auto d-block">
+            <div class="col-12 mb-3">
+                <span style="font-size: 0.8rem;">N'oubliez pas de cliquer sur le bouton <b>Enregistrer les modifications</b> quand vous avez terminé.</span>
+            </div>
+        </div>
+        {{ form_start(formEdit) }}
+        <div class="row px-3">
+            <div class="col-12 mb-2" >
+                {{ form_label(formEdit.firstname, '', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_errors(formEdit.firstname) }}
+                {{ form_widget(formEdit.firstname, { 'attr' : { 'class' : 'rounded'}}) }}
+            </div>
+            <div class="col-12 mb-2" >
+                {{ form_label(formEdit.lastname, '', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {% if emailError|default %}
+                    {{ form_errors(formEdit.lastname) }}
+                {% endif %}
+                {{ form_widget(formEdit.lastname, { 'attr' : { 'class' : 'rounded'}}) }}
+            </div>
+        </div>
+        <div class="row px-3">
+            <div class="col-12 mb-2" >
+                {{ form_label(formEdit.email, '', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_errors(formEdit.email) }}
+                {% if emailError|default %}
+                    <div class="invalid-feedback d-block mt-0">
+                        <span class="badge bg-danger text-white mb-1 me-1">ERROR</span>{{ emailError }}
+                    </div>
+                {% endif %}
+                {{ form_widget(formEdit.email, { 'attr' : { 'class' : 'rounded'}}) }}
+            </div>
+        </div>
+        <div class="text-start px-3 mt-3">
+            <button class="btn btn-success px-4" type="submit" style="border-radius: 5px;">Enregistrer les modifications</button>
+        </div>
+        {{ form_end(formEdit) }}
+    </div>
+
+{% endblock %}
+

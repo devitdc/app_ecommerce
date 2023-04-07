@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# transfer only new files
+if [ "$1" == "update-view" ]; then
+   rsync -Phauvnr --del --ignore-existing --update ./ node140-eu.n0c.com:~/public_html/ledressingfrancais --include-from=./deploy_include --exclude-from=./deploy_exclude
+elif [ "$1" == "update" ]; then
+   rsync -Phauvr --del --ignore-existing --update ./ node140-eu.n0c.com:~/public_html/ledressingfrancais --include-from=./deploy_include --exclude-from=./deploy_exclude
+# transfer all files that have been changed
+elif [ "$1" == "copy-view" ]; then
+   rsync -Phauvnr --del ./ node140-eu.n0c.com:~/public_html/ledressingfrancais --include-from=deploy_include --exclude-from=deploy_exclude
+elif [ "$1" == "copy" ]; then
+   rsync -Phauvr --del ./ node140-eu.n0c.com:~/public_html/ledressingfrancais --include-from=deploy_include --exclude-from=deploy_exclude
+else
+   rsync -Phauvr --del --ignore-existing ./ node140-eu.n0c.com:~/public_html/ledressingfrancais --include-from=deploy_include --exclude-from=deploy_exclude
+fi
+
+ssh mhfftdtt@node140-eu.n0c.com -p 5022 -i /Users/vveloso/.ssh/vincent.veloso@it-dc.fr 'cd public_html/ledressingfrancais && php bin/console c:c'

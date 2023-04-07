@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Validation de la commande</h2>
+    <div class="row justify-content-center mt-4">
+        <div class="col-sm-12 col-md-5">
+            <div class="border border-2 border-success rounded p-4 ">
+                <h5><i class="fa-solid fa-house me-3"></i>Adresse de livraison</h5>
+                <p><b>{{ addressName }}</b><br>
+                    {{ order.deliveryFirstname ~ ' ' ~ order.deliveryLastname }}<br>
+                    {{ order.deliveryAddress1 }}<br>
+                    {% if order.deliveryAddress2|default %}
+                        {{ order.deliveryAddress2 }}<br>
+                    {% endif %}
+                    {{ order.deliveryPostalCode ~ ' ' ~ order.deliveryCity }}<br>
+                    {{ order.deliveryCountry }}<br>
+                    {{ 'Tél : '~ order.deliveryPhone}}
+                </p>
+            </div>
+            <div class="mt-4 mb-4 border border-2 border-success rounded p-4">
+                {% if order.carrierName starts with 'Chronopost'%}
+                    <h5><i class="fa-solid fa-truck-fast me-3"></i>Transporteur</h5>
+                {% else %}
+                    <h5><i class="fa-solid fa-truck me-3"></i>Transporteur</h5>
+                {% endif %}
+                <p><b>{{ order.carrierName }} - {{ carrierType }}</b><br>
+                    {{ 'Livraison en ' ~ carrierDelay }}<br>
+                    {{ order.carrierPrice|number_format(2, ',', ' ') ~ ' €' }}
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-5">
+            {% set totalPrice = 0 %}
+            {% for p in cart %}
+                {% set totalPrice = totalPrice + (p.product.price*p.quantity) %}
+            {% endfor %}
+            <div class="border border-2 rounded bg-light p-4">
+                <h5 class="order-resume-col">Récapitulatif de la commande</h5>
+                <div class="row justify-content-between ">
+                    <div class="col-5 col-sm-5 col-md-6 mt-2 order-resume-col">
+                        Articles :
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 text-end pe-0 mt-2 order-resume-col">
+                        {{ totalPrice|number_format(2, ',', ' ') }} €
+                    </div>
+                    <div class="col-8 col-sm-6 col-md-8 mt-1 order-resume-col">
+                        Frais de livraison :
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 text-end pe-0 mt-1 order-resume-col">
+                        {{ order.carrierPrice|number_format(2, ',') }} €
+                    </div>
+                    <div class="col-5 col-sm-5 col-md-5 fw-bold mt-3 fs-4 order-resume-col">
+                        Total TTC :
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 fw-bold mt-3 text-end pe-0 fs-4 order-resume-col">
+                        {{ (totalPrice+order.carrierPrice)|number_format(2, ',') }} €
+                    </div>
+                    <div class="col-sm-12 mt-3 mx-auto pe-0" >
+                        <form action="{{ path('stripe_create_session', {'reference' : reference}) }} " method="post">
+                            <button type="submit" id="checkout-button" class="btn btn-primary w-100 fw-bold fs-4">Payer {{ (totalPrice+order.carrierPrice)|number_format(2, ',') }} €</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}

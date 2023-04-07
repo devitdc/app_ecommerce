@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_5_horizontal_layout.html.twig']
+    globals:
+        # Obtain it from the .env file:
+        app_brand: '%app.brand%'
+        app_website: '%app.website%'
+when@test:
+    twig:
+        strict_variables: true

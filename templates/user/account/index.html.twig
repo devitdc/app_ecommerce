@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container text-center" style="max-width: 1300px">
+        <h1>Mon espace client</h1>
+        <div class="row g-4 mt-1 {% if is_granted('ROLE_ADMIN') %}justify-content-center{% else %}justify-content-center{% endif %}" >
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card py-3" style="background-color: #f1f2f6;">
+                    <a href="{{ path('user_orders') }}" class="text-decoration-none">
+                    <div class="card-body text-center" style="color: #34495e;">
+                        <i class="fa-solid fa-box-open fs-5 mb-2"></i>
+                        <h6 class="card-title text-uppercase fw-bold">Mes commandes</h6>
+                        {#<p class="card-text">Suivre ou renvoyer</p>#}
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card py-3" style="background-color: #f1f2f6;">
+                    <a href="{{ path('user_update_home') }}" class="text-decoration-none">
+                        <div class="card-body text-center" style="color: #34495e">
+                            <i class="fa-solid fa-user fs-5 mb-2"></i>
+                            <h6 class="card-title text-uppercase fw-bold">Mon compte</h6>
+                            {#<p class="card-text">Gérer vos informations</p>#}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card py-3" style="background-color: #f1f2f6;">
+                    <a href="{{ path('user_address_home') }}" class="text-decoration-none">
+                        <div class="card-body text-center" style="color: #34495e">
+                            <i class="fa-solid fa-address-book fs-5 mb-2"></i>
+                            <h6 class="card-title text-uppercase fw-bold">Mes Adresses</h6>
+                            {#<p class="card-text">Gérer vos adresses</p>#}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card py-3" style="background-color: #f1f2f6;">
+                    <a href="{{ path('admin') }}" class="text-decoration-none">
+                        <div class="card-body text-center" style="color: #34495e">
+                            <i class="fa-solid fa-gears fs-5 mb-2"></i>
+                            <h6 class="card-title text-uppercase fw-bold">BackOffice</h6>
+                            {#<p class="card-text">Gérer vos produits, etc.</p>#}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 404 - Le Dressing Français{% endblock %}
+
+{% block content %}
+    <div class="text-center" style="color: #24313B">
+        <h1 style="font-size: 6rem !important">Zut !</h1>
+        <img class="img-fluid" src="{{ asset('images/icons/error_404.webp') }}" alt="page d'erreur 404 - Le Dressing Français" style="height: 490px">
+        <p class="mt-3 mb-4 fs-3">La page que vous recherchez n'existe pas.</p>
+        <p>
+            <a class="text-decoration-none" href="{{ path('home') }}">
+                <button class="btn text-light px-4 py-2" style="background-color: #24313B">Retour à la page d'accueil</button></a>
+        </p>
+    </div>
+{% endblock %}

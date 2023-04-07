@@ -1,0 +1,21 @@
+{# avec slick#}
+{#<li>
+    <img class="img-fluid product-carousel-item-image"  src="{{ asset('images/uploads/' ~ product.image) }}" alt="{{ product.name }}" style="max-width: 220px !important;">
+    <div class="" style="max-width: 220px;">
+        <span class="product-carousel-item-name text-ellipsis-2" >{{ product.name }}</span>
+        <span class="fw-bold product-carousel-item-price" >{{ product.price|number_format(2, ',', '.') }} €</span>
+    </div>
+</li>#}
+
+{# avec ligthSlider #}
+<li>
+        <a class="text-decoration-none" href="{{ path('product_show', { slug: product.slug}) }}">
+            <img class="img-fluid product-carousel-item-image"  src="{{ asset('images/uploads/' ~ product.image) }}" alt="{{ product.name }}" style="max-width: 220px;">
+        </a>
+        <div class="container">
+            <div class="mx-auto" style="max-width: 220px;">
+                <span class="my-auto product-carousel-item-name text-ellipsis-2" >{{ product.name }}</span>
+                <span class="fw-bold product-carousel-item-price" >{{ product.price|number_format(2, ',', '.') }} €</span>
+            </div>
+        </div>
+</li>

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container p-0" style="max-width: 600px;">
+        <a href="{{ path('user_address_home') }}">
+            <button class="btn btn-primary rounded-1 mt-2 mb-4">
+                Retour à vos adresses
+            </button>
+        </a>
+    </div>
+    <div class="container p-4" style="max-width: 800px;">
+        <div class="mx-auto d-block" style="max-width: 600px;">
+            <h2 class="mb-3">{% if editMode == true %}Modifier votre adresse{% else %}Ajouter une nouvelle adresse{% endif %}</h2>
+            {{ form_start(form) }}
+                {#{{ form_label(form.name, 'Address name', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_widget(form.name, { 'attr' : { 'class' : 'mb-2'}}) }}#}
+                {{ form_row(form.name, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        {#{{ form_label(form.firstname, 'First name', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-6 fw-bold'}}) }}
+                        {{ form_widget(form.firstname, { 'attr' : { 'class' : 'col-lg-6 mb-2'}}) }}#}
+                        {{ form_row(form.firstname, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-6 fw-bold'}}) }}
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        {#{{ form_label(form.lastname, 'Last name', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-6 fw-bold'}}) }}
+                        {{ form_widget(form.lastname, { 'attr' : { 'class' : 'col-lg-6 mb-2'}}) }}#}
+                        {{ form_row(form.lastname, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-6 fw-bold'}}) }}
+                    </div>
+                </div>
+                {#{{ form_label(form.company, 'Company', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_widget(form.company, { 'attr' : { 'class' : 'mb-2'}}) }}
+                {{ form_label(form.address1, 'Address', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_widget(form.address1, { 'attr' : { 'class' : 'mb-2'}}) }}
+                {{ form_label(form.address2, 'Further Address', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_widget(form.address2, { 'attr' : { 'class' : 'mb-2'}}) }}#}
+                {{ form_row(form.company, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_row(form.address1, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_row(form.address2, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                <div class="row">
+                    <div class="col-md-5 col-lg-5">
+                        {#{{ form_label(form.postalCode, 'Postal Code', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-5 fw-bold'}}) }}
+                        {{ form_widget(form.postalCode, { 'attr' : { 'class' : 'col-lg-5 mb-2'}}) }}#}
+                        {{ form_row(form.postalCode, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-6 fw-bold'}}) }}
+                    </div>
+                    <div class="col-md-7 col-lg-7">
+                        {#{{ form_label(form.city, 'City', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-7 fw-bold'}}) }}
+                        {{ form_widget(form.city, { 'attr' : { 'class' : 'col-lg-7 mb-2'}}) }}#}
+                        {{ form_row(form.city, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-6 fw-bold'}}) }}
+                    </div>
+                </div>
+                {#{{ form_label(form.country, 'Country', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_widget(form.country, { 'attr' : { 'class' : 'mb-2'}}) }}
+                {{ form_label(form.phone, 'Phone number', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_widget(form.phone, { 'attr' : { 'class' : 'mb-2'}}) }}
+                {{ form_label(form.isBilling, 'Billing address ?', { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}}
+                {{ form_errors(form.isBilling) }}
+                {{ form_widget(form.isBilling, { 'attr' : { 'class' : 'mb-2'}}) }}#}
+                {{ form_row(form.country, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_row(form.phone, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                {{ form_row(form.isBilling, { 'label_attr' : { 'class' : 'col-sm-12 col-lg-12 fw-bold'}}) }}
+                <div class="d-flex justify-content-start">
+                    <button type="submit" class="btn btn-primary text-light py-2 px-5 fs-6 mt-3 mb-2" >{% if editMode == true %}Enregistrer l'adresse{% else %}Ajouter une adresse{% endif %}</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

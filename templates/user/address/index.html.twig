@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <style>
+        .address-add-text {
+            font-size: 1.2rem;
+            color: #5a5a5a;
+        }
+        .address-icon-plus {
+            background-color: initial;
+            background-position: left center;
+            background-repeat: no-repeat;
+            font-size: 35px;
+            color: #0f172a;
+        }
+        .address-box {
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        .address-box {
+            border: 2px dashed #c7c7c7;
+            box-sizing: border-box;
+            display: table-cell;
+            height: 246px;
+            text-align: center;
+            vertical-align: middle;
+            width: 300px;
+        }
+        .address-box-small {
+            border: 2px dashed #c7c7c7;
+            border-radius: 8px;
+            box-sizing: border-box;
+            display: table-cell;
+            height: 40px;
+            text-align: center;
+            vertical-align: middle;
+            width: 195px;
+        }
+        .address-box-small>a>div {
+            margin-top: 5px !important;
+        }
+        .address-box .address-box-inner {
+            border-radius: 8px;
+            position: relative;
+        }
+        .address-box-inner {
+            padding: 20px 26px !important;
+        }
+    </style>
+    <div class="container p-0" style="max-width: 980px;">
+        <a href="{{ path('user_account') }}">
+            <button class="btn btn-primary rounded-1 mt-2 mb-4">
+                Retour à votre compte
+            </button>
+        </a>
+    </div>
+    <div class="container p-0" style="max-width: 980px;">
+        <div class="d-flex mb-3">
+            <h3 class="mt-1">Vos adresses</h3>
+            <div class="me-auto mx-3 d-md-block d-lg-none address-box-small">
+                <a class="text-decoration-none text-dark fs-6" href="{{ path('user_address_add') }}">
+                    <div class="text-dark">
+                        Ajouter une adresse <i class="fa-solid fa-circle-plus"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4 d-none d-lg-block">
+                <a class="text-decoration-none" href="{{ path('user_address_add') }}">
+                    <div class="address-box">
+                        <div class="address-box-inner">
+                            <div class="address-icon-plus"><i class="fa-solid fa-circle-plus"></i></div>
+                            <h6 class="address-add-text">Ajouter une adresse</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% if app.user.addresses|default %}
+                {% for address in app.user.addresses %}
+                    <div class="card-address col-lg-4 col-md-6 mb-3">
+                        <div class="card" style="height: 246px;">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold">{{ address.name }}
+                                    {% if address.isBilling %}(<span class="fst-italic">adresse de facturation</span>){% endif %}
+                                </h6>
+                                <p class="card-text" style="font-size: 0.9rem">
+                                    {{ address.firstname ~ ' ' ~ address.lastname }}<br>
+                                    {{ address.address1 }}<br>
+                                    {% if address.address2|default %}
+                                        {{ address.address2 }}<br>
+                                    {% endif %}
+                                    {{ address.city ~', '~ address.postalCode }}<br>
+                                    {{ address.country }}<br>
+                                    Tél : {{ address.phone }}<br>
+
+                                </p>
+                                <div style="font-size: 14px; position: absolute; bottom: 10px;">
+                                    <a href="{{ path('user_address_update', { 'id' : address.id }) }}" class="text-decoration-none">Modifier</a>
+                                    <span class="px-2 ">|</span>
+                                    <span data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Supprimer le véhicule">
+                                        <button type="button" class="btn btn-link btn-sm btn-rounded text-decoration-none" data-bs-toggle="modal" data-bs-target="#modal-{{ address.id }}">
+                                            Supprimer
+                                        </button>
+                                    </span>
+                                    <div class="modal fade" id="modal-{{ address.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" >Voulez-vous vraiment supprimer cette adresse ?</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{ address.firstname ~ ' ' ~ address.lastname }}<br>
+                                                    {{ address.address1 }}<br>
+                                                    {% if address.address2|default %}
+                                                        {{ address.address2 }}<br>
+                                                    {% endif %}
+                                                    {{ address.city ~', '~ address.postalCode }}<br>
+                                                    {{ address.country }}<br>
+                                                    Tél : {{ address.phone }}<br>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary rounded-1" data-bs-dismiss="modal">Annuler</button>
+                                                    <form action="{{ path('user_address_delete', { 'id' : address.id}) }}" method="POST">
+                                                        <input type="hidden" name="_method" value="delete">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ address.id) }}">
+                                                        <button type="submit" class="btn btn-danger rounded-1">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
