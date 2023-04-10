@@ -19,7 +19,7 @@ Paiement avec l'API Stripe et envoi de notification mail avec l'API MailJet (act
 * MariaDB 10.10.2
 * BootStrap 5.2
 * FontAwesome
-* npm 9.5.0
+* node.js 19.7.0 / npm 9.5.0
 
 Pour vérifier que les pré-requis sont respectés :
 ```bash
