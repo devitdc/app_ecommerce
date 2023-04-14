@@ -35,7 +35,7 @@ symfony security:check
 
 ```bash
 composer install
-npm force install
+npm install --force
 npm run build
 symfony server:start
 ```
